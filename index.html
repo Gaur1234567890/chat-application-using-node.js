@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+<style>
+    body{
+    background-color: bisque;
+    text-align: center;
+}
+#heading{
+    color:brown
+}
+#a1{
+    text-align: center;
+}
+.div1{
+    margin-top: 10px;
+    text-align: center;
+}
+.mylist{
+    list-style: none;
+}
+</style>
+</head>
+<body>
+    <div class="div1">
+    <h1 id="heading">GAURAV Chat Application</h1>
+    <ul class="mylist">
+        <li></li>
+    </ul>
+    <form action="" class="myform">
+    <input type="text" class="myinput">
+    <input type="submit">
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js" integrity="sha512-skuhu6jj+sQnhLq1Txsack8VfnIrX8wL+MTFilYlFFT/NuLJm7eya7zOROs39Jy5cjASMEWqxLzijRVmKhsqWQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var socket = io();
+    document.querySelector('form.myform').addEventListener('submit',(e)=>{
+        e.preventDefault();
+        var msg= document.querySelector('input.myinput').value;
+        console.log('myinput',msg);
+        socket.emit('clientevent',msg);
+    })
+    socket.on('serverevent',(payload)=>{
+        console.log(payload);
+        var ul = document.querySelector('ul.mylist');
+        ul.innerHTML += `<li>${payload}</li>`
+    })
+</script>
+
+</body>
+</html>
